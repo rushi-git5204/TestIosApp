@@ -1,0 +1,1 @@
+D:\Devlop\MauiBlazor\MauiBlazor\MauiBlazor.csproj;x64

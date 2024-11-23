@@ -1,0 +1,90 @@
+﻿@page "/FrmCityMaster"
+@inject IJSRuntime JSRuntime
+@inject HttpClient HttpClient
+
+<div class="inrPage">
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <h4>City Master</h4>
+        </div>
+    </div>
+
+    <div class="inrPageCon">
+        <div class="row">
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                <div class="mb-3">
+                    <label for="exampleInput" class="form-label">City Code</label>
+                    <input type="text" class="form-control" id="txtCityCode" @bind="@txtCityCode" />
+                </div>
+                <div class="mb-3">
+                    <label for="exampleInput" class="form-label">City Name</label>
+                    <input type="text" class="form-control" id="txtCityName" @bind="@txtCityName" />
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <ul class="btnListing">
+                    <li>
+                        <button class="btn btn-primary" @onclick="SaveRecord">Save</button>
+                    </li>
+                    <li>
+                        <button class="btn btn-primary" @onclick="ViewRecord">View</button>
+                    </li>
+                    <li>
+                        <button class="btn btn-primary" @onclick="Print">Print</button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+    private string? txtCityCode { get; set; }
+    private string? txtCityName { get; set; }
+
+    private class CityMasterDTO
+    {
+        public string CityCode { get; set; } = string.Empty;
+        public string CityName { get; set; } = string.Empty;
+    }
+
+    private async Task SaveRecord()
+    {
+        if (!string.IsNullOrEmpty(txtCityCode) && !string.IsNullOrEmpty(txtCityName))
+        {
+            // Prepare the CityMasterDTO to send to the API
+            var cityMaster = new CityMasterDTO
+                {
+                    CityCode = txtCityCode,
+                    CityName = txtCityName
+                };
+
+            // Make the API call using HttpClient
+            var response = await HttpClient.PostAsJsonAsync("https://localhost:44340/api/CityMaster", cityMaster);
+
+            if (response.IsSuccessStatusCode)
+            {
+                // Successfully saved the record
+                txtCityCode = string.Empty;
+                txtCityName = string.Empty;
+                StateHasChanged();
+                await JSRuntime.InvokeVoidAsync("alert", "Record saved successfully.");
+            }
+            else
+            {
+                // Handle failure
+                await JSRuntime.InvokeVoidAsync("alert", "Failed to save record.");
+            }
+        }
+        else
+        {
+            await JSRuntime.InvokeVoidAsync("alert", "City Code and City Name are required.");
+        }
+    }
+
+    private void ViewRecord() { /* Implement if needed */ }
+    private void Print() { /* Implement if needed */ }
+}

@@ -1,0 +1,4 @@
+D:\Devlop\MauiBlazor\MauiBlazor\bin\Release\net8.0-android\publish\com.companyname.mauiblazor-Signed.aab
+D:\Devlop\MauiBlazor\MauiBlazor\bin\Release\net8.0-android\publish\com.companyname.mauiblazor.aab
+D:\Devlop\MauiBlazor\MauiBlazor\bin\Release\net8.0-android\publish\com.companyname.mauiblazor-Signed.apk
+D:\Devlop\MauiBlazor\MauiBlazor\bin\Release\net8.0-android\publish\_Microsoft.Android.Resource.Designer.dll
